@@ -41,6 +41,10 @@ publish() {
 	echo "Will attempt to publish with patch# $COUNTER. May already exist in NPM registry."
 	sed -i -e "s|999999|${COUNTER}|g" package.json
 	./node_modules/.bin/ci-publish
+	rc=$?
+	if [[ $rc != 0 ]]; then 
+		exit $rc
+	fi
 	mv package.json.back package.json
 }
 
