@@ -1,7 +1,5 @@
 #!/bin/bash
 
-export PATH="./node_modules/.bin:$PATH" 
-
 build() {
 	webpack -p --progress --colors --config webpack.js
 	rm -f bundle.js
@@ -21,6 +19,7 @@ help() {
 }
 
 init() {
+	export PATH="./node_modules/.bin:$PATH" 
 	rm -rf node_modules 
 	npm install
 }
