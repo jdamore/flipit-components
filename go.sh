@@ -47,6 +47,7 @@ publish() {
 	npm publish
 	rc=$?
 	mv package.json.back package.json
+	mv ~/.npmrc.back ~/.npmrc
 	if [[ $rc != 0 ]]; then 
 		exit $rc
 	fi
