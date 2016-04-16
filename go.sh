@@ -16,7 +16,7 @@ test() {
 }
 
 publish() {	
-	echo "will publish to NPM"
+	npm publish
 }
 
 preflight() 
