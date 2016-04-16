@@ -1,6 +1,6 @@
 {
   "name": "flipit-components",
-  "version": "0.0.{COUNTER}",
+  "version": "0.0.999999",
   "description": "React web components for flipit",
   "repository": {
     "type": "git",
