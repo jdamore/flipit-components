@@ -4,6 +4,7 @@ import { expect } from 'chai';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react-addons-test-utils';
+import _ from 'underscore';
 
 import Card from '../../src/card/index';
 import Styles from '../../src/card/index.scss';
@@ -23,8 +24,8 @@ describe('Card', () => {
 		component = ReactTestUtils.renderIntoDocument(<Card front={props.front} back={props.back}/>);
 		card = ReactDOM.findDOMNode(component);
 		let cardChildren = ReactTestUtils.scryRenderedDOMComponentsWithTag(component, 'div');
-		front = Array.find(cardChildren, n => n.getAttribute('name') === 'front');
-		back = Array.find(cardChildren, n => n.getAttribute('name') === 'back');
+		front = _.find(cardChildren, n => n.getAttribute('name') === 'front');
+		back = _.find(cardChildren, n => n.getAttribute('name') === 'back');
 	});
 
 	describe('render', () => {
