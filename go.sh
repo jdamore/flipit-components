@@ -1,7 +1,7 @@
 #!/bin/bash
 
 build() {
-	webpack -p --progress --colors --config webpack.js
+	./node_modules/.bin/webpack -p --progress --colors --config webpack.js
 	rm -f bundle.js
 }
 
@@ -19,7 +19,6 @@ help() {
 }
 
 init() {
-	export PATH="./node_modules/.bin:$PATH" 
 	rm -rf node_modules 
 	npm install
 }
@@ -41,12 +40,12 @@ publish() {
 	fi
 	echo "Will attempt to publish with patch# $COUNTER. May already exist in NPM registry."
 	sed -i -e "s|{COUNTER}|${COUNTER}|g" package.json
-	ci-publish
+	./node_modules/.bin/ci-publish
 	mv package.json.back package.json
 }
 
 test() {	
-	mocha --reporter nyan --compilers js:babel-core/register,css:test/nocss-compiler.js --require test/dom.js test/**/test.js
+	./node_modules/.bin/mocha --reporter nyan --compilers js:babel-core/register,css:test/nocss-compiler.js --require test/dom.js test/**/test.js
 }
 
 if [ $# -eq 0 ]; then
