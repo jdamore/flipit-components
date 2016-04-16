@@ -2,6 +2,7 @@
 
 init() {
 	if [ -f ~/.nvm/nvm.sh ];then
+		echo "Will source installed nvm.sh"
 		source ~/.nvm/nvm.sh
 	fi
 	nvm install 5.0
