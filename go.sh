@@ -36,16 +36,20 @@ publish() {
 	if [ -n "$SNAP_PIPELINE_COUNTER" ]; then
 		export COUNTER=$SNAP_PIPELINE_COUNTER
 	else
-		export COUNTER=1
+		export COUNTER=6
 	fi
 	echo "Will attempt to publish with patch# $COUNTER. May already exist in NPM registry."
 	sed -i -e "s|999999|${COUNTER}|g" package.json
-	./node_modules/.bin/ci-publish
+	if [ -f ~/.npmrc ]; then
+		cp ~/.npmrc ~/.npmrc.back
+	fi
+	echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+	npm publish
 	rc=$?
+	mv package.json.back package.json
 	if [[ $rc != 0 ]]; then 
 		exit $rc
 	fi
-	mv package.json.back package.json
 }
 
 test() {	
