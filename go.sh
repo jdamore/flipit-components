@@ -1,6 +1,11 @@
 #!/bin/bash
 
 init() {
+	if [ -f ~/.nvm/nvm.sh ];then
+		source ~/.nvm/nvm.sh
+	fi
+	nvm install 5.0
+	nvm use 5.0
 	export PATH="./node_modules/.bin:$PATH" 
 	rm -rf node_modules 
 	npm install
