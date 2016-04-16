@@ -1,4 +1,4 @@
-![Build Status](https://snap-ci.com/jdamore/flipit-components/branch/master/build_image)](https://snap-ci.com/jdamore/flipit-components/branch/master)
+[![Build Status](https://snap-ci.com/jdamore/flipit-components/branch/master/build_image)](https://snap-ci.com/jdamore/flipit-components/branch/master)
 
 #flipit-components
 
