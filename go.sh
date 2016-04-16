@@ -32,8 +32,18 @@ preflight()
 	test
 }
 
-publish() {	 
+# Requires NPM_TOKEN environment variable to be set
+publish() {
+	cp package.json package.json.back
+	if [ -n "$SNAP_PIPELINE_COUNTER" ]; then
+		export COUNTER=$SNAP_PIPELINE_COUNTER
+	else
+		export COUNTER=1
+	fi
+	echo "Will attempt to publish with patch# $COUNTER. May already exist in NPM registry."
+	sed -i -e "s|{COUNTER}|${COUNTER}|g" package.json
 	ci-publish
+	mv package.json.back package.json
 }
 
 test() {	
