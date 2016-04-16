@@ -1,12 +1,6 @@
 #!/bin/bash
 
 init() {
-	if [ -f ~/.nvm/nvm.sh ];then
-		echo "Will source installed nvm.sh"
-		source ~/.nvm/nvm.sh
-		nvm install 5.0
-		nvm use 5.0
-	fi
 	export PATH="./node_modules/.bin:$PATH" 
 	rm -rf node_modules 
 	npm install
