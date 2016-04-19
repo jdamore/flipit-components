@@ -11,7 +11,7 @@ Card
 ##Run the showroom application
 
 ```
-./go.sh showroom
-curl http://localhost:8090
+./go.sh demo
 
 ```
+Then go to http://localhost:8090

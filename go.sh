@@ -4,17 +4,27 @@ build() {
 	./node_modules/.bin/webpack -p --progress --colors --config webpack.config.js
 }
 
+demo() {
+	build
+	cp -f dist/flipit-components.js demo/.
+	pushd demo
+	../node_modules/.bin/webpack -p --progress --colors --config webpack.config.js
+	../node_modules/.bin/webpack-dev-server --progress --colors --port 8090
+	popd
+
+}
+
 help() {
 	echo "Usage: go.sh [options]"
 	echo "--------"
 	echo "Options:"
 	echo "--------"
 	echo "build		build the library"
+	echo "demo		build the demo and start the web server"
 	echo "help		this help menu"
 	echo "init		setup environment"
 	echo "preflight	before committing"
 	echo "publish		publish to NPM registry"
-	echo "showroom	build the demo and start the web server"
 	echo "test		run all tests"
 }
 
@@ -69,17 +79,6 @@ publish() {
 	fi
 }
 
-showroom() {
-	init
-	build
-	cp -f dist/flipit-components.js showroom/.
-	pushd showroom
-	../node_modules/.bin/webpack -p --progress --colors --config webpack.config.js
-	../node_modules/.bin/webpack-dev-server --progress --colors --port 8090
-	popd
-
-}
-
 test() {	
 	./node_modules/.bin/mocha --reporter nyan --compilers js:babel-core/register,css:test/nocss-compiler.js --require test/dom.js test/**/test.js
 }
@@ -87,11 +86,11 @@ test() {
 if [ $# -eq 0 ]; then
 	preflight
 elif ([ $1 == "build" 		] \
+	||  [ $1 == "demo"  		] \
 	||  [ $1 == "help"  		] \
 	||  [ $1 == "init"  		] \
 	||  [ $1 == "preflight" ] \
 	||  [ $1 == "publish" 	] \
-	||  [ $1 == "showroom"  ] \
 	||  [ $1 == "test" 			]); then
 	$1
 else
