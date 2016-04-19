@@ -3,10 +3,15 @@
 #flipit-components
 
 ##Synopsis
-A library of ReactJS web components initially designed for the flipit application.
-
-##Components
-
+A library of ReactJS components for the [http://flickit.corsamore.com](flipit) application.
 ```
 Card
+```
+
+##Run the showroom application
+
+```
+./go.sh showroom
+curl http://localhost:8090
+
 ```

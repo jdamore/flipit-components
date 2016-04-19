@@ -2,11 +2,11 @@
 .gitignore
 .nvmrc
 *.log
+demo
 go.sh
-webpack.js
 node_modules
 test
-webpack.js
+webpack.config.js
 
 
 

@@ -1,8 +1,7 @@
 #!/bin/bash
 
 build() {
-	./node_modules/.bin/webpack -p --progress --colors --config webpack.js
-	rm -rf bundle.js
+	./node_modules/.bin/webpack -p --progress --colors --config webpack.config.js
 }
 
 help() {
@@ -15,11 +14,11 @@ help() {
 	echo "init		setup environment"
 	echo "preflight	before committing"
 	echo "publish		publish to NPM registry"
+	echo "showroom	build the demo and start the web server"
 	echo "test		run all tests"
 }
 
 init() {
-	rm -rf node_modules 
 	npm install
 }
 
@@ -70,6 +69,17 @@ publish() {
 	fi
 }
 
+showroom() {
+	init
+	build
+	cp -f dist/flipit-components.js showroom/.
+	pushd showroom
+	../node_modules/.bin/webpack -p --progress --colors --config webpack.config.js
+	../node_modules/.bin/webpack-dev-server --progress --colors --port 8090
+	popd
+
+}
+
 test() {	
 	./node_modules/.bin/mocha --reporter nyan --compilers js:babel-core/register,css:test/nocss-compiler.js --require test/dom.js test/**/test.js
 }
@@ -81,6 +91,7 @@ elif ([ $1 == "build" 		] \
 	||  [ $1 == "init"  		] \
 	||  [ $1 == "preflight" ] \
 	||  [ $1 == "publish" 	] \
+	||  [ $1 == "showroom"  ] \
 	||  [ $1 == "test" 			]); then
 	$1
 else
