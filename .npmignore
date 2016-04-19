@@ -8,6 +8,5 @@ node_modules
 test
 webpack.config.js
 package.json-e
-
-
-
+.gitignore.bak
+package.json.bak
