@@ -53,29 +53,28 @@ _publish-ci() {
 	rc=$?
 	mv package.json.back package.json
 	mv ~/.npmrc.back ~/.npmrc
-	if [[ $rc != 0 ]]; then 
-		exit $rc
-	fi
 }
 
 _publish-local() {
-	export COUNTER=1
+	export COUNTER=2
 	echo "Will attempt to publish patch # $COUNTER. May already exist in NPM registry."
 	cp package.json package.json.back
 	sed -i -e "s|999999|${COUNTER}|g" package.json
 	npm publish
 	rc=$?
 	mv package.json.back package.json
-	if [[ $rc != 0 ]]; then 
-		exit $rc
-	fi
 }
 
 publish() {
+	sed -i.bak '/dist/d' .gitignore
 	if [ -n "$SNAP_CI" ]; then
 		_publish-ci
 	else
 		_publish-local
+	fi
+	if [[ $rc != 0 ]]; then 
+		mv .gitignore.bak .gitignore
+		exit $rc
 	fi
 }
 

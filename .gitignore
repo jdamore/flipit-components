@@ -1,5 +1,4 @@
 .DS_Store
-dist/flipit-components.js
 demo/flipit-components.js
 node_modules
 *.log
