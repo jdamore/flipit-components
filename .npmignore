@@ -1,4 +1,12 @@
-test
-bundle.js
-go.sh
+.git
+.gitignore
 .nvmrc
+*.log
+go.sh
+webpack.js
+node_modules
+test
+webpack.js
+
+
+

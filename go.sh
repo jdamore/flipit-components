@@ -2,7 +2,7 @@
 
 build() {
 	./node_modules/.bin/webpack -p --progress --colors --config webpack.js
-	rm -f bundle.js
+	rm -rf bundle.js
 }
 
 help() {
@@ -10,7 +10,7 @@ help() {
 	echo "--------"
 	echo "Options:"
 	echo "--------"
-	echo "build		build the app"
+	echo "build		build the library"
 	echo "help		this help menu"
 	echo "init		setup environment"
 	echo "preflight	before committing"
@@ -31,14 +31,10 @@ preflight()
 }
 
 # Requires NPM_TOKEN environment variable to be set
-publish() {
+_publish-ci() {
+	export COUNTER=$SNAP_PIPELINE_COUNTER
+	echo "Will attempt to publish patch # $COUNTER. May already exist in NPM registry."
 	cp package.json package.json.back
-	if [ -n "$SNAP_PIPELINE_COUNTER" ]; then
-		export COUNTER=$SNAP_PIPELINE_COUNTER
-	else
-		export COUNTER=6
-	fi
-	echo "Will attempt to publish with patch# $COUNTER. May already exist in NPM registry."
 	sed -i -e "s|999999|${COUNTER}|g" package.json
 	if [ -f ~/.npmrc ]; then
 		cp ~/.npmrc ~/.npmrc.back
@@ -50,6 +46,27 @@ publish() {
 	mv ~/.npmrc.back ~/.npmrc
 	if [[ $rc != 0 ]]; then 
 		exit $rc
+	fi
+}
+
+_publish-local() {
+	export COUNTER=1
+	echo "Will attempt to publish patch # $COUNTER. May already exist in NPM registry."
+	cp package.json package.json.back
+	sed -i -e "s|999999|${COUNTER}|g" package.json
+	npm publish
+	rc=$?
+	mv package.json.back package.json
+	if [[ $rc != 0 ]]; then 
+		exit $rc
+	fi
+}
+
+publish() {
+	if [ -n "$SNAP_CI" ]; then
+		_publish-ci
+	else
+		_publish-local
 	fi
 }
 
