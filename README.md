@@ -8,7 +8,7 @@ A library of ReactJS components for the [http://flickit.corsamore.com](flipit) a
 Card
 ```
 
-##Run the showroom application
+##Run the Demo application
 
 ```
 ./go.sh demo
