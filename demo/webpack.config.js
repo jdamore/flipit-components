@@ -21,7 +21,7 @@ module.exports = {
     },
     externals: {
         'react': 'React',
-        'react-dom': 'ReactDom',
+        'react-dom': 'ReactDOM',
         'flipit-components': 'FlipitComponents' 
 		},
     resolve: {

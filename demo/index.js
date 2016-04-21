@@ -1,5 +1,7 @@
 import Demo  from './Demo';
 
+import ReactDOM from 'react-dom';
+
 (function () {
-  ReactDom.render(<Demo/>, document.getElementById('demo'));
+  ReactDOM.render(<Demo/>, document.getElementById('demo'));
 })();
