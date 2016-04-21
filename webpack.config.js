@@ -32,7 +32,7 @@ module.exports = {
         ]
     },
     externals: {
-        'react': 'React' //don't bundle the 'react' npm package with our bundle.js, instead get it from a global 'React' variable
+        'react': 'React'
     },
     resolveLoader: { 
         root: path.join(__dirname, 'node_modules')
